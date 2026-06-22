@@ -1,38 +1,31 @@
-import { useEffect , useLayoutEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react';
 import './App.css'
-import { useMemo } from 'react';
+
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  
+  const ref = useRef(null);
+  const [value, setValue] = useState();
 
   useEffect(() => {
-    console.log('useEffect');
+    console.log('ref', ref.current)
+    ref.current.focus();
   }, []);
 
-  useEffect(() => {
-    console.log('useEffect update count', count);
-  }, [count]);
+  const onChancge = (e) =>{
+    setValue(e.target.value);
+  }
 
-  useLayoutEffect(() => {
-    console.log('useLayoutEffect')
-  }, [])
-  const message = useMemo(() => {
-      console.log('useMemo');
-      if (count > 5){
-        return 'больше 5'
-      }
-    }, [count])
-    
-  console.log('render, message ', message);
+  const checkCorrectName = useCallback(() => {
+    console.log('value', value)
+  }, [value] )
+
+  console.log('render')
   return (
     <>
-    <h3>Count: {count} </h3>
-    <button onClick={() => setCount(count +1)}>Click</button>
-    {message && <span>{message}</span>}
+    <input placeholder="Name" ref={ref} value={value} onChange={onChancge} />
+    <button onClick={checkCorrectName}>Check</button>
     </>
-  )
+  );
 }
 
 export default App
