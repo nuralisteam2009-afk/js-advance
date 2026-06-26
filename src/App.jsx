@@ -1,50 +1,46 @@
-import { useEffect, useState } from 'react'
-import './App.css'
-  
+import { useState, useEffect, useRef } from 'react';
+import './App.css';
+  import beepSound from './sirena-policiya.mp3';
 
 function App() {
-  const [name, setName] = useState('');
-  const [secondName, setSecondName] = useState('');
-
-  const onChangeName = (e) => {
-    const newName = e.target.value;
-    setName(newName)
-    localStorage.setItem('name', newName);
-  }
-
-
-  const onChangeSecondName = (e) => {
-    const newName = e.target.value;
-    setSecondName(newName)
-    sessionStorage.setItem('secondName', newName)
-  }
+  const [theme, setTheme] = useState(
+     localStorage.getItem("app-theme") || "light");
+     const audioRef = useRef(new Audio(beepSound));
+     const timerRef = useRef(null);
 
   useEffect(() => {
-    const name = localStorage.getItem('name') || "";
-    setName(name);
-    
-    const secondName = sessionStorage.getItem('secondName') || "";
-    setSecondName(secondName);
-  }, [])
+    localStorage.setItem("app-theme", theme);
+  }, [theme]);
 
-  const clearAll =() => {
-    sessionStorage.clear();
-    localStorage.removeItem("name");
-    setName("");
-    setSecondName("");
+  
+  const toggleTheme = () => {
+     clearTimeout(timerRef.current);
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    audioRef.current.currentTime = 0; 
+    audioRef.current.play().catch(error => {
+      console.log("Браузер заблокировал звук до взаимодействия:", error);
+    });
+    // timerRef.current = setTimeout(() => {
+    //   audioRef.current.pause();
+    //   audioRef.current.currentTime = 0; // Сбрасываем в начало
+    // }, 2000);
   };
 
+  const setPause = () => {
+    audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+  }
+
   return (
-    <>
-    <input placeholder='name' value={name} onChange={onChangeName}/>
-    
-
-    <input placeholder="second name" value={secondName} onChange= {onChangeSecondName} />
-
-    <button onClick={clearAll}>remove All</button>
-
-    </>
-  )
+    <div className={theme}>
+      <button onClick={toggleTheme}>
+        theme
+      </button>
+      <button onClick={setPause}>
+        pause
+      </button>
+    </div>
+  );
 }
 
-export default App
+export default App;

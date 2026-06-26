@@ -1,0 +1,17 @@
+.dark{
+    background-color: rgb(252, 6, 6);
+    color: #2506f2;
+    min-width: 100vh;
+    min-height: 100vh;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.light{
+    background-color: blue;
+     min-width: 100vh;
+    min-height: 100vh;
+}
