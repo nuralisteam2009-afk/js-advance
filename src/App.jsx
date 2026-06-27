@@ -1,43 +1,41 @@
 import { useState, useEffect, useRef } from 'react';
 import './App.css';
-  import beepSound from './sirena-policiya.mp3';
+import beepSound from './sirena-policiya.mp3';
 
 function App() {
-  const [theme, setTheme] = useState(
-     localStorage.getItem("app-theme") || "light");
-     const audioRef = useRef(new Audio(beepSound));
-     const timerRef = useRef(null);
+  const [theme, setTheme] = useState(localStorage.getItem("app-theme") || "light");
+  
+  // Создаем аудио объект
+  const audioRef = useRef(new Audio(beepSound));
 
   useEffect(() => {
     localStorage.setItem("app-theme", theme);
   }, [theme]);
 
-  
   const toggleTheme = () => {
-     clearTimeout(timerRef.current);
+    // 1. Просто меняем тему
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
-    audioRef.current.currentTime = 0; 
+    
+    // 2. Запускаем музыку, только если она еще не играет
+    // Если она уже играет, play() ничего не испортит
     audioRef.current.play().catch(error => {
-      console.log("Браузер заблокировал звук до взаимодействия:", error);
+       console.log("Ожидаю взаимодействия пользователя:", error);
     });
-    // timerRef.current = setTimeout(() => {
-    //   audioRef.current.pause();
-    //   audioRef.current.currentTime = 0; // Сбрасываем в начало
-    // }, 2000);
   };
 
   const setPause = () => {
     audioRef.current.pause();
-      audioRef.current.currentTime = 0;
+    audioRef.current.currentTime = 0;
   }
 
   return (
     <div className={theme}>
       <button onClick={toggleTheme}>
-        theme
+        Переключить тему (музыка не прервется)
       </button>
+      
       <button onClick={setPause}>
-        pause
+        Остановить звук
       </button>
     </div>
   );
