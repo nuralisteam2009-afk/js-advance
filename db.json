@@ -1,0 +1,30 @@
+{
+  "posts": [
+    {
+      "title": "dsa675",
+      "views": 0,
+      "id": "KTmZCsKhzJQ"
+    },
+    {
+      "title": "dsfnnnnnn",
+      "views": 0,
+      "id": "Mab733qz0QQ"
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "text": "a comment about post 1",
+      "postId": null
+    },
+    {
+      "id": "2",
+      "text": "another comment about post 1",
+      "postId": null
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "$schema": "./node_modules/json-server/schema.json"
+}
