@@ -5,7 +5,7 @@ import * as yup from "yup"
 
 const schema = yup
   .object({
-    firstName: yup.string().required(),
+    firstName: yup.string().email().required(),
     age: yup.number().positive().integer().required(),
   })
   .required()
