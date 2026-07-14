@@ -1,9 +1,23 @@
-import ItemList from './ItemList';
+// import WelcomeMessage from './WelcomeMessage';
+// import ItemList from './ItemList';
+// import Counter from './Counter';
+import NameForm from './NameForm';
+// import ToggleButton from './ToggleButton';
 
 function App() {
   return (
     <>
-      <ItemList items={["Яблоко", "Банан", "Апельсин"]} />
+      {/* Раскомментируй нужное задание: */}
+
+      {/* <WelcomeMessage username="Арслан" /> */}
+
+      {/* <ItemList items={["Яблоко", "Банан", "Апельсин"]} /> */}
+
+      {/* <ToggleButton />  */}
+
+      {/* <Counter/> */}
+
+      <NameForm />
     </>
   );
 }
